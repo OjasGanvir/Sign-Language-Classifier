@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Sign language Recognition</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+  <header>
+    <h1>Sign Language Recognition System</h1>
+  </header>
+  <main class="main-container">
+    <!-- Camera View -->
+    <div class="video-card">
+      <img src="{{ url_for('video_feed') }}" alt="Camera Feed">
+      <div class="badge" id="mode-badge">Mode: -</div>
+    </div>
+
+    <!-- Letter Output & Tools -->
+    <div class="info-card">
+      <h2>Detected Letter</h2>
+      <div class="letter-box" id="detected-letter">-</div>
+
+      <div class="sentence-section">
+        <h3>Word / Sentence:</h3>
+        <p id="sentence-text"></p>
+        <button id="btn-speak">Speak</button>
+        <button id="btn-clear">Clear</button>
+      </div>
+    </div>
+  </main>
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>
