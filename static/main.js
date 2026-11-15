@@ -10,6 +10,10 @@ setInterval(() => {
       const detectedEl = document.getElementById('detected-letter');
       const modeEl = document.getElementById('mode-badge');
       const sentenceEl = document.getElementById('sentence-text');
+      const cameraStatusEl = document.getElementById('camera-status');
+
+      cameraStatusEl.innerText = data.camera_status || "";
+      cameraStatusEl.hidden = data.camera_status === "Camera connected";
 
       if (data.letter !== "-") {
         detectedEl.innerText = data.letter;
@@ -33,7 +37,12 @@ setInterval(() => {
         holdCounter = 0;
       }
     })
-    .catch(err => console.error("Error fetching data:", err));
+    .catch(err => {
+      const cameraStatusEl = document.getElementById('camera-status');
+      cameraStatusEl.innerText = "Camera is unavailable";
+      cameraStatusEl.hidden = false;
+      console.error("Error fetching data:", err);
+    });
 }, 100);
 
 // Clear sentence button
@@ -50,4 +59,22 @@ document.getElementById('btn-speak').addEventListener('click', () => {
     const utterance = new SpeechSynthesisUtterance(sentence);
     window.speechSynthesis.speak(utterance);
   }
+});
+
+let infobtn = document.querySelector(".info");
+const cameraPage = document.getElementById("camera-page");
+const infoPage = document.getElementById("info-page");
+const backToCamera = document.getElementById("back-to-camera");
+
+infobtn.addEventListener("click", () => {
+  cameraPage.hidden = true;
+  infoPage.hidden = false;
+  infobtn.setAttribute("aria-expanded", "true");
+  window.scrollTo(0, 0);
+});
+
+backToCamera.addEventListener("click", () => {
+  infoPage.hidden = true;
+  cameraPage.hidden = false;
+  infobtn.setAttribute("aria-expanded", "false");
 });

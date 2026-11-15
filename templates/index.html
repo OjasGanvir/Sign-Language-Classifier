@@ -8,14 +8,17 @@
 </head>
 
 <body>
-  <header>
-    <h1>Sign Language Recognition System</h1>
-  </header>
-  <main class="main-container">
+  <div id="camera-page">
+    <header>
+      <h1> Gesture Classifier </h1>
+      <button class="info" type="button" aria-expanded="false" aria-controls="info-page">INFO</button>
+    </header>
+    <main class="main-container">
     <!-- Camera View -->
     <div class="video-card">
       <img src="{{ url_for('video_feed') }}" alt="Camera Feed">
       <div class="badge" id="mode-badge">Mode: -</div>
+      <p class="camera-status" id="camera-status" role="status" aria-live="polite">Camera is unavailable</p>
     </div>
 
     <!-- Letter Output & Tools -->
@@ -29,6 +32,45 @@
         <button id="btn-speak">Speak</button>
         <button id="btn-clear">Clear</button>
       </div>
+    </div>
+    </main>
+  </div>
+  <main class="info-page" id="info-page" hidden>
+    <button class="back-button" id="back-to-camera" type="button">← Back to Camera</button>
+    <div class="info-content">
+      <p class="info-eyebrow">PROJECT INFORMATION</p>
+      <h1>Gesture Classifier</h1>
+      <p class="info-intro">A webcam-based prototype that recognizes hand gestures for letters and displays the result on screen.</p>
+
+      <section class="info-section">
+        <h2>How it works</h2>
+        <ol>
+          <li>The webcam captures a hand in view.</li>
+          <li>MediaPipe detects key points, called landmarks, on the hand.</li>
+          <li>A trained machine-learning model uses those landmarks to predict a gesture.</li>
+          <li>The predicted letter appears on the camera screen.</li>
+        </ol>
+      </section>
+
+      <section class="info-section">
+        <h2>How to try it</h2>
+        <ul>
+          <li>Allow camera access and keep one hand clearly inside the camera frame.</li>
+          <li>Use a well-lit space and hold your hand where the camera can see it.</li>
+          <li>Make a hand gesture and watch the detected letter on the screen.</li>
+          <li>J and Z use movement gestures; trace the letter shape with your hand.</li>
+        </ul>
+      </section>
+
+      <section class="info-section">
+        <h2>What this project recognizes</h2>
+        <p>The model classifies hand gestures as letters. This is a gesture and alphabet-letter recognition prototype, not a translator for complete sign-language conversations.</p>
+      </section>
+
+      <section class="info-section">
+        <h2>Limitations</h2>
+        <p>Lighting, camera quality, hand position, distance from the camera, and differences between users can affect recognition. The project is a learning demonstration and may not recognize every gesture correctly.</p>
+      </section>
     </div>
   </main>
   <script src="{{ url_for('static', filename='main.js') }}"></script>
